@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base_for.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body>
+    <content>
+        {% block content %}
+        <h1>Корзина</h1>
+        <p><h2><strong><em>Пополните корзину новыми покупками!</em></strong></h2></p>
+        {% endblock %}
+    </content>
+
+    <menu>
+        {% block menu %}
+        {{ block.super }}
+        {% endblock %}
+    </menu>
+</body>
+</html>

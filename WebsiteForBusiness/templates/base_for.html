@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+    <content>
+        {% block content %}
+        <h1>Заголовок страницы</h1>
+        <h4>Контент</h4>
+        {% endblock %}
+    </content>
+
+    <menu>
+        {% block menu %}
+        {% include 'main_page.html' %}
+        {% endblock %}
+    </menu>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base_for.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация/Вход</title>
+</head>
+<body>
+    <content>
+        {% block content %}
+        <h1>Регистрация/Вход</h1>
+        {% endblock %}
+    </content>
+
+    <menu>
+        {% block menu %}
+        {{ block.super }}
+        {% endblock %}
+    </menu>
+</body>
+</html>
