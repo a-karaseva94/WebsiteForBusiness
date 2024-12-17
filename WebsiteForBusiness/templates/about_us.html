@@ -9,15 +9,18 @@
     <content>
         {% block content %}
         <h1>О нас</h1>
+        <br>
         {% for i in text_about %}
            <h4><em>{{ i }}</em></h4>
         {% endfor %}
+        <br>
         <h4><em>С программами можно ознакомиться на сайтах:
             <br>
             <a href="https://frprf.ru/zaymy-regfondy/">ФРП России</a>
             и
             <a href="https://frp68.tmbreg.ru/mery-podderzhki/preferential-loans">ФРП Тамбовской области</a>
         </em></h4>
+        <br>
         <img src="https://w.sbis.ru/cdn/EventsCDN/1.0.5/Webinars/Banners/bg/image_0016.webp"
                 alt="рукопожатие" width="700"/>
         {% endblock %}

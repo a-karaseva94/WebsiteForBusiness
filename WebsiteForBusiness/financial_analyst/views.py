@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template.context_processors import request
+
 #from .forms import UserRegister
 from .models import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -18,9 +20,24 @@ def about_us(request):
     }
     return render(request, 'about_us.html', context)
 
-
+# Пагинатор
 def services(request):
-    return render(request, 'services.html')
+    all_services = Service.objects.all().order_by('-id')
+    per_page = request.GET.get('per_page', 2)
+    paginator = Paginator(all_services, per_page)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    context = {
+        'page_obj': page_obj,
+        'per_page': per_page,
+        'all_services': all_services,
+        }
+    return render(request, 'services.html', context)
 
 
 def cart(request):
@@ -61,20 +78,3 @@ def login_or_registration(request):
 #             form = UserRegister()
 #     return render(request, 'registration_page.html', context)
 #
-# # Пагинатор для игр
-# def paginator_func(request):
-#     games = Games.objects.all().order_by('-id')
-#     per_page = request.GET.get('per_page',3)
-#     paginator = Paginator(games, per_page)
-#     page_number = request.GET.get('page')
-#     try:
-#         page_obj = paginator.get_page(page_number)
-#     except PageNotAnInteger:
-#         page_obj = paginator.page(1)
-#     except EmptyPage:
-#         page_obj = paginator.page(paginator.num_pages)
-#     context = {
-#         'page_obj': page_obj,
-#         'per_page': per_page,
-#     }
-#     return render(request, 'games.html', context)
