@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template.context_processors import request
-
-#from .forms import UserRegister
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from .forms import *
 from .models import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth import authenticate, login, logout
 
 
 def main_page(request):
@@ -19,6 +19,7 @@ def about_us(request):
         'text_about': text_about,
     }
     return render(request, 'about_us.html', context)
+
 
 # Пагинатор
 def services(request):
@@ -36,7 +37,7 @@ def services(request):
         'page_obj': page_obj,
         'per_page': per_page,
         'all_services': all_services,
-        }
+    }
     return render(request, 'services.html', context)
 
 
@@ -44,37 +45,36 @@ def cart(request):
     return render(request, 'cart.html')
 
 
-def login_or_registration(request):
-    return render(request, 'login_or_registration.html')
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/cart')
+            if user is None:
+                return HttpResponseRedirect('/register')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
-# Регистрация
-# def sign_up_by_django(request):
-#     buyers = Buyer.objects.all()
-#     users = [i.name for i in buyers]
-#     info = {}
-#     form = UserRegister()
-#     context = {
-#         'info': info,
-#         'form': form,
-#         'users': users,
-#     }
-#     if request.method == 'POST':
-#         form = UserRegister(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             repeat_password = form.cleaned_data['repeat_password']
-#             age = form.cleaned_data['age']
-#             if password == repeat_password and int(age) >= 18 and username not in users:
-#                 Buyer.objects.create(name=username, balance=0, age=age)
-#                 return HttpResponse(f"Приветствуем, {username}!")
-#             if password != repeat_password:
-#                 info.update({'error1': 'Пароли не совпадают'})
-#             if int(age) < 18:
-#                 info.update({'error2': 'Вы должны быть старше 18'})
-#             if username in users:
-#                 info.update({'error3': 'Пользователь уже существует'})
-#         else:
-#             form = UserRegister()
-#     return render(request, 'registration_page.html', context)
-#
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Создан аккаунт {username}!')
+            return HttpResponseRedirect('/login')
+    else:
+        form = RegisterForm()
+    return render(request, 'registrate.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/login')

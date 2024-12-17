@@ -9,7 +9,14 @@
     <content>
         {% block content %}
         <h1>Корзина</h1>
+        <br>
         <p><h2><strong><em>Пополните корзину новыми покупками!</em></strong></h2></p>
+        <br>
+        {% if user.is_authenticated %}
+            <p><h3>Добро пожаловать, {{ user.username }}!</h3> <a href="/logout">Выйти</a></p>
+        {% else %}
+            <p><a href="/login">Войти</a> | <a href="/register">Зарегистрироваться</a></p>
+        {% endif %}
         {% endblock %}
     </content>
 

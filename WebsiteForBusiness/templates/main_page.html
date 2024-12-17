@@ -14,6 +14,13 @@
         </style>
     </head>
     <body>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <h1>{{ message }}</h1>
+            </div>
+            {% endfor %}
+        {% endif %}
         <menu>
             <div class="container">
                 <ul>
@@ -21,7 +28,8 @@
                     <li><a href="http://127.0.0.1:8000/about_us" style="text-decoration: none; ">О нас</a></li>
                     <li><a href="http://127.0.0.1:8000/services" style="text-decoration: none; ">Услуги</a></li>
                     <li><a href="http://127.0.0.1:8000/cart" style="text-decoration: none; ">Корзина</a></li>
-                    <li><a href="http://127.0.0.1:8000/login" style="text-decoration: none; ">Регистрация/Вход</a></li>
+                    <li><a href="http://127.0.0.1:8000/register" style="text-decoration: none; ">Регистрация</a></li>
+                    <li><a href="http://127.0.0.1:8000/login" style="text-decoration: none; ">Вход</a></li>
                 </ul>
             </div>
         </menu>

@@ -26,5 +26,7 @@ urlpatterns = [
     path('about_us/', about_us),
     path('services/', services),
     path('cart/', cart),
-    path('login/',login_or_registration),
+    path('login/', login_view),
+    path('register/', register_view),
+    path('logout/', logout_view),
 ]
