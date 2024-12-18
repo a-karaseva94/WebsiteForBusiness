@@ -4,14 +4,26 @@
 }
 body {
     background-color: #FFDAB9;
-    text-align: center;
+
     font-size: 100%
 }
 
 h1 {
     color: #A52A2A;
+    text-align: center;
+}
+
+h2 {
+    color: #000000;
+    text-align: center;
+}
+
+h3 {
+    color: #000000;
+    text-align: center;
 }
 
 h4 {
     color: #000000;
+    text-align: center;
 }

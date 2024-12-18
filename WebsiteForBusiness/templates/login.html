@@ -7,23 +7,21 @@
 </head>
 <body>
     <content>
-      {% block content %}
+        {% block content %}
         <h1>Войти</h1>
         <br>
         <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <br>
-          <button type="submit">Войти</button>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <div style="text-align: center;"> <button type="submit" >Войти</button></div>
         </form>
-      {% endblock %}
+        {% endblock %}
     </content>
-
     <menu>
         {% block menu %}
         {{ block.super }}
         {% endblock %}
     </menu>
-
 </body>
 </html>

@@ -4,23 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrate</title>
-    <link rel="stylesheet" href="{% static 'style3.css' %}">
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
 <body>
     <content>
       {% block content %}
         <h1>Зарегистрироваться</h1>
-
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Зарегистрироваться</button>
+                <button type="submit"><a href="http://127.0.0.1:8000/cart" style="text-decoration: none; ">
+                    Назад в корзину</a></button>
             </form>
-
       {% endblock %}
     </content>
-
-
 </body>
 </html>
 
