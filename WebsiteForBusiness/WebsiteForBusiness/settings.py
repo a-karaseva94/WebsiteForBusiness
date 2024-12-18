@@ -122,4 +122,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Для использования декоратора @login_required
+# URL-адрес для перенаправления неавторизованных пользователей:
 LOGIN_URL = '/login/'
