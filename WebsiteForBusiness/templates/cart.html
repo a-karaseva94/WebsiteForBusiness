@@ -14,6 +14,7 @@
                 <p>{{ item.service.title }} | {{ item.service.type }} | {{ item.service.program }}</p>
                 <p>Количество: {{item.quantity}}</p>
                 <p>Цена: {{ item.service.cost }} рублей</p>
+                <a href='{% url "add_yet" item.id %}' style="text-decoration: none;" >Добавить еще</a><br>
                 <a href='{% url "remove" item.id %}' style="text-decoration: none;" >Удалить</a><br><br>
             {% empty %}
                 <h2><strong><em>Пополните корзину новыми покупками!</em></strong></h2>

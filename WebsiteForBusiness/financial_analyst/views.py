@@ -96,7 +96,18 @@ def add_to_cart(request, service_id):
     return HttpResponseRedirect('/cart')
 
 
+def add_to_cart_yet(request, item_id):
+    cart_item = CartItem.objects.get(id=item_id, user=request.user)
+    cart_item.quantity += 1
+    cart_item.save()
+    return HttpResponseRedirect('/cart')
+
+
 def remove_from_cart(request, item_id):
     cart_item = CartItem.objects.get(id=item_id, user=request.user)
-    cart_item.delete()
+    if cart_item.quantity <=1:
+        cart_item.delete()
+    else:
+        cart_item.quantity -= 1
+        cart_item.save()
     return HttpResponseRedirect('/cart')
