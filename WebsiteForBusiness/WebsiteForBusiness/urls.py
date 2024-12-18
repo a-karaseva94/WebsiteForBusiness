@@ -19,7 +19,6 @@ from django.urls import path
 
 from financial_analyst.views import *
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page),

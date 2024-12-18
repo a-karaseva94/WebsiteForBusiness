@@ -76,6 +76,7 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
+
 @login_required
 def cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
@@ -85,6 +86,7 @@ def cart(request):
         'total_cost': total_cost
     }
     return render(request, 'cart.html', context)
+
 
 @login_required
 def add_to_cart(request, service_id):

@@ -2,22 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# class Buyer(models.Model):
-#     name = models.CharField(max_length=50)
-#     email = models.EmailField()
-#     created_at = models.DateTimeField(auto_now=True)
-#
-#
-#     def __str__(self):
-#         return self.name
-#
-#
-#     class Meta:
-#         verbose_name = 'Покупатель'
-#         verbose_name_plural = 'Покупатели'
-#         ordering = ['-created_at']
-
-
 class Service(models.Model):
     TYPES_CHOICES = [
         ('для регионального займа', 'для регионального займа'),
@@ -35,10 +19,8 @@ class Service(models.Model):
     program = models.CharField(max_length=70, choices=PROGRAMS_CHOICES, verbose_name='Программа займа')
     cost = models.DecimalField(max_digits=9, decimal_places=1, verbose_name='Цена услуги')
 
-
     def __str__(self):
         return self.title
-
 
     class Meta:
         verbose_name = 'Услуга'
