@@ -5,6 +5,7 @@ from .forms import *
 from .models import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def main_page(request):
@@ -41,10 +42,6 @@ def services(request):
     return render(request, 'services.html', context)
 
 
-def cart(request):
-    return render(request, 'cart.html')
-
-
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -54,7 +51,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/cart')
+                return HttpResponseRedirect('/services')
             if user is None:
                 return HttpResponseRedirect('/register')
     else:
@@ -78,3 +75,28 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login')
+
+@login_required
+def cart(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_cost = sum(item.service.cost * item.quantity for item in cart_items)
+    context = {
+        'cart_items': cart_items,
+        'total_cost': total_cost
+    }
+    return render(request, 'cart.html', context)
+
+@login_required
+def add_to_cart(request, service_id):
+    service = Service.objects.get(id=service_id)
+    cart_item, created = CartItem.objects.get_or_create(service=service,
+                                                       user=request.user)
+    cart_item.quantity += 1
+    cart_item.save()
+    return HttpResponseRedirect('/cart')
+
+
+def remove_from_cart(request, item_id):
+    cart_item = CartItem.objects.get(id=item_id, user=request.user)
+    cart_item.delete()
+    return HttpResponseRedirect('/cart')

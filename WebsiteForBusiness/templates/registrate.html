@@ -14,8 +14,10 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Зарегистрироваться</button>
-                <button type="submit"><a href="http://127.0.0.1:8000/cart" style="text-decoration: none; ">
-                    Назад в корзину</a></button>
+                <br>
+                <br>
+                <a href="/services" style="text-decoration: none;">
+                    Назад к услугам </a>
             </form>
       {% endblock %}
     </content>

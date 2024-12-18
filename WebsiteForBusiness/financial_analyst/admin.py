@@ -1,15 +1,10 @@
 from django.contrib import admin
 from .models import *
 
+# Админка для CartItem
+admin.site.register(CartItem)
 
-# Админка для Buyer
-@admin.register(Buyer)
-class BuyerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email',)
-    search_fields = ('name',)
-
-
-# Админка для Services
+# Админка для Service
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title', 'type', 'program', 'cost', )

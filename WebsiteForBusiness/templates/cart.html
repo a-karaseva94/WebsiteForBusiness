@@ -10,13 +10,19 @@
         {% block content %}
         <h1>Корзина</h1>
         <br>
-        <p><h2><strong><em>Пополните корзину новыми покупками!</em></strong></h2></p>
+            {% for item in cart_items %}
+                <p>{{ item.service.title }} | {{ item.service.type }} | {{ item.service.program }}</p>
+                <p>Количество: {{item.quantity}}</p>
+                <p>Цена: {{ item.service.cost }} рублей</p>
+                <a href='{% url "remove" item.id %}' style="text-decoration: none;" >Удалить</a><br><br>
+            {% empty %}
+                <h2><strong><em>Пополните корзину новыми покупками!</em></strong></h2>
+                <br>
+            {% endfor %}
+        <p><b>Общая стоимость: {{total_cost}} рублей</b></p>
         <br>
-        {% if user.is_authenticated %}
-            <p><h4>Добро пожаловать, {{ user.username }}!<a href="/logout"> Выйти</a></h4>
-        {% else %}
-            <p><h4><a href="/login">Войти</a> | <a href="/register">Зарегистрироваться</a></h4>
-        {% endif %}
+        <a href="/services" style="text-decoration: none;">Продолжить покупки</a><br><br>
+        <a href="#" style="text-decoration: none;">Оформить заказ</a>
         {% endblock %}
     </content>
 
@@ -27,3 +33,4 @@
     </menu>
 </body>
 </html>
+

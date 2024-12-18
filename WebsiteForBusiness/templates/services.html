@@ -8,51 +8,67 @@
 <body>
     <content>
         {% block content %}
-        <h1>Услуги</h1>
-        <br>
-        <table border="1">
-            <tr>
-                <th>Название</th>
-                <th>Вид займа</th>
-                <th>Программа займа</th>
-                <th>Стоимость услуги</th>
-                <th>Добавить в корзину</th>
-            </tr>
-            {% for item in page_obj %}
-            <tr>
-                <td style="width: 139.25px; text-align: center; height: 44px;">{{ item.title }}</td>
-                <td style="width: 139.25px; text-align: center; height: 44px;">{{ item.type }}</td>
-                <td style="width: 139.25px; text-align: center; height: 44px;">{{ item.program }}</td>
-                <td style="width: 139.25px; text-align: center; height: 44px;">{{ item.cost }}</td>
-                <td style="text-align: center;"> <button>Купить</button></td>
-            </tr>
-            {% empty %}
-                <p>Нет услуг</p>
-            {% endfor %}
-        </table>
-        <br>
-        <br>
-        <div class="pagination"
-            style="text-align: center;">
-            <form method="get">
-                <label for="per_page">Показать на странице:</label>
-                <select id="per_page" name="per_page" >
-                    <option value="2">2</option>
-                    <option value="5">5</option>
-                </select>
-                <button type="submit" class="paginator_bt">Применить</button>
-            </form>
+            <li class="service-list">
+                <h1>Услуги</h1>
+                <br>
+                <table border="1">
+                    <tr>
+                        <th>Название</th>
+                        <th>Вид займа</th>
+                        <th>Программа займа</th>
+                        <th>Стоимость услуги</th>
+                        <th>Добавить в корзину</th>
+                    </tr>
+                    {% for service in page_obj %}
+                        <tr>
+                            <td style="width: 139.25px; text-align: center; height: 44px;">{{ service.title }}</td>
+                            <td style="width: 139.25px; text-align: center; height: 44px;">{{ service.type }}</td>
+                            <td style="width: 139.25px; text-align: center; height: 44px;">{{ service.program }}</td>
+                            <td style="width: 139.25px; text-align: center; height: 44px;">{{ service.cost }}</td>
+                            <td style="text-align: center;" ><a href='{% url "add" service.id %}'
+                                       style="text-decoration: none;">Добавить в корзину</a></td>
+                        </tr>
+                    {% empty %}
+                        Нет услуг
+                    {% endfor %}
+                </table>
+                <br>
+                <br>
 
-            {% if page_obj.has_previous %}
-                <a href="?page=1" style="text-decoration: none; "><<</a>
-                <br><a href="?page={{ page_obj.previous_page_number }}" style="text-decoration: none; ">Предыдущая</a>
-            {% endif %}
-            <br>{{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
-            {% if page_obj.has_next %}
-                <br><a href="?page={{ page_obj.next_page_number }}" style="text-decoration: none; ">Следующая</a>
-                <br><a href="?page={{ page_obj.paginator.num_pages }}" style="text-decoration: none; ">>>></a>
-            {% endif %}
-        </div>
+                {% if user.is_authenticated %}
+                    <p><h4>Добро пожаловать, {{user.username}}!<a href="/logout"
+                                                                  style="text-decoration: none;"> Выйти</a></h4>
+                {% else %}
+                    <p><h4><a href="/login" style="text-decoration: none;">Войти</a>
+                    | <a href="/register" style="text-decoration: none;">Зарегистрироваться</a></h4>
+                {% endif %}
+                <br>
+
+                <div class="pagination"
+                    style="text-align: center;">
+                    <form method="get">
+                        <label for="per_page">Показать на странице:</label>
+                        <select id="per_page" name="per_page" >
+                            <option value="2">2</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button type="submit" class="paginator_bt">Применить</button>
+                    </form>
+
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" style="text-decoration: none; "><<</a>
+                        <br><a href="?page={{ page_obj.previous_page_number }}"
+                               style="text-decoration: none; ">Предыдущая</a>
+                    {% endif %}
+                    <br>{{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+                    {% if page_obj.has_next %}
+                        <br><a href="?page={{ page_obj.next_page_number }}"
+                               style="text-decoration: none; ">Следующая</a>
+                        <br><a href="?page={{ page_obj.paginator.num_pages }}"
+                               style="text-decoration: none; ">>>></a>
+                    {% endif %}
+                </div>
+            </li>
 
         {% endblock %}
     </content>

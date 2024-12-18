@@ -26,6 +26,8 @@ urlpatterns = [
     path('about_us/', about_us),
     path('services/', services),
     path('cart/', cart),
+    path('add/<int:service_id>/', add_to_cart, name='add'),
+    path('remove/<int:item_id>/', remove_from_cart, name='remove'),
     path('login/', login_view),
     path('register/', register_view),
     path('logout/', logout_view),
